@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chargeback Dispute System — Wireframe v1.0</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F4F2EE;
+            --surface: #FEFEFE;
+            --surface2: #EDEBE7;
+            --border: #D6D2CA;
+            --border-strong: #A8A49C;
+            --ink: #1C1A17;
+            --ink-2: #5C5750;
+            --ink-3: #9C9890;
+            --accent: #C84B31;
+            --accent-light: #FDF0ED;
+            --accent-dark: #9A3520;
+            --blue: #2B5FE8;
+            --blue-light: #EEF3FF;
+            --success: #1A6B42;
+            --success-light: #E8F4EE;
+            --warning: #A05C00;
+            --warning-light: #FFF5E6;
+            --danger: #B82020;
+            --danger-light: #FDEAEA;
+            --neutral: #3A3730;
+            --ann: #FFFBCC;
+            --ann-border: #D4C820;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #1C1A17;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 0 28px;
+            height: 50px;
+            border-bottom: 2px solid #333;
+        }
+
+        .nav-brand {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #666;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-right: 32px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 2px;
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        .nav-tab {
+            font-size: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #777;
+            white-space: nowrap;
+            transition: all .2s;
+            border: none;
+            background: transparent;
+            letter-spacing: .03em;
+        }
+
+        .nav-tab:hover {
+            color: #bbb;
+            background: #2a2824;
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* CANVAS */
+        .canvas {
+            display: none;
+            padding: 36px 28px 80px;
+            max-width: 1240px;
+            margin: 0 auto;
+            animation: fadeIn .25s ease;
+        }
+
+        .canvas.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .layout.wide {
+            grid-template-columns: 540px 1fr;
+        }
+
+        .screen-wrap {
+            position: sticky;
+            top: 66px;
+        }
+
+        .screen-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-3);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        /* SCREEN */
+        .screen {
+            background: var(--surface);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 var(--border-strong), 8px 8px 0 rgba(0, 0, 0, .04);
+        }
+
+        .screen-topbar {
+            background: var(--surface2);
+            border-bottom: 1.5px solid var(--border);
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .dot.r {
+            background: #FF6B6B;
+        }
+
+        .dot.y {
+            background: #FFD93D;
+        }
+
+        .dot.g {
+            background: #6BCB77;
+        }
+
+        .url-bar {
+            flex: 1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 3px 9px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-3);
+        }
+
+        .screen-body {
+            padding: 20px 20px;
+        }
+
+        /* SIDEBAR NAV (dashboard) */
+        .dash-layout {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            min-height: 440px;
+        }
+
+        .dash-sidebar {
+            background: var(--surface2);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .sidebar-brand {
+            padding: 0 14px 14px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -.02em;
+        }
+
+        .sidebar-tag {
+            font-size: 9px;
+            color: var(--ink-3);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .sidebar-item {
+            padding: 7px 14px;
+            font-size: 11px;
+            color: var(--ink-2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            border-left: 2px solid transparent;
+        }
+
+        .sidebar-item.active {
+            color: var(--accent);
+            background: var(--accent-light);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .sidebar-item:hover {
+            background: var(--bg);
+        }
+
+        .sidebar-section {
+            font-size: 9px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--ink-3);
+            padding: 10px 14px 4px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .dash-content {
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        /* TYPOGRAPHY */
+        .screen-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -.02em;
+            margin-bottom: 3px;
+        }
+
+        .screen-sub {
+            font-size: 11px;
+            color: var(--ink-2);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--ink-3);
+            margin-bottom: 10px;
+            margin-top: 16px;
+        }
+
+        /* STATS ROW */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 10px 12px;
+        }
+
+        .stat-val {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -.02em;
+            color: var(--ink);
+        }
+
+        .stat-val.danger {
+            color: var(--danger);
+        }
+
+        .stat-val.warning {
+            color: var(--warning);
+        }
+
+        .stat-val.success {
+            color: var(--success);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 2px;
+        }
+
+        /* TABLE */
+        .table-wrap {
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 1fr 80px 70px 80px 70px;
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+            padding: 7px 12px;
+            gap: 8px;
+        }
+
+        .table-hcell {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--ink-3);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 80px 70px 80px 70px;
+            padding: 9px 12px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+            cursor: pointer;
+            transition: background .15s;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row:hover {
+            background: var(--accent-light);
+        }
+
+        .table-row.selected {
+            background: var(--accent-light);
+            border-left: 2px solid var(--accent);
+        }
+
+        .table-cell {
+            font-size: 11px;
+            color: var(--ink-2);
+            font-family: 'IBM Plex Mono', monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .table-cell.main {
+            color: var(--ink);
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+            white-space: nowrap;
+        }
+
+        .badge.open {
+            background: var(--warning-light);
+            color: var(--warning);
+            border: 1px solid #e0b870;
+        }
+
+        .badge.submitted {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid #a0b8f0;
+        }
+
+        .badge.won {
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid #70c090;
+        }
+
+        .badge.lost {
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid #e09090;
+        }
+
+        .badge.expired {
+            background: var(--surface2);
+            color: var(--ink-3);
+            border: 1px solid var(--border-strong);
+        }
+
+        .badge.urgent {
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .badge.review {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid #a0b8f0;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .4
+            }
+        }
+
+        /* DEADLINE TIMER */
+        .deadline-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 7px;
+            margin-bottom: 12px;
+            font-size: 11px;
+        }
+
+        .deadline-box.urgent {
+            background: var(--danger-light);
+            border: 1px solid #e09090;
+            color: var(--danger);
+        }
+
+        .deadline-box.normal {
+            background: var(--warning-light);
+            border: 1px solid #e0b870;
+            color: var(--warning);
+        }
+
+        .deadline-box.safe {
+            background: var(--success-light);
+            border: 1px solid #70c090;
+            color: var(--success);
+        }
+
+        .deadline-num {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* CASE DETAIL */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .info-item {
+            background: var(--surface2);
+            border-radius: 6px;
+            padding: 8px 10px;
+        }
+
+        .info-label {
+            font-size: 9px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--ink-3);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 3px;
+        }
+
+        .info-val {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .info-val.mono {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+        }
+
+        /* EVIDENCE CHECKLIST */
+        .evidence-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .evidence-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            background: var(--surface);
+        }
+
+        .evidence-item.done {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .evidence-item.missing {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .evidence-item.optional {
+            border-color: var(--border);
+            background: var(--surface2);
+        }
+
+        .evidence-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .evidence-text {
+            flex: 1;
+        }
+
+        .evidence-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .evidence-sub {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 1px;
+        }
+
+        .evidence-status {
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .evidence-status.done {
+            color: var(--success);
+        }
+
+        .evidence-status.missing {
+            color: var(--danger);
+        }
+
+        .evidence-status.optional {
+            color: var(--ink-3);
+        }
+
+        /* UPLOAD ZONE */
+        .upload-zone {
+            border: 2px dashed var(--border-strong);
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            background: var(--bg);
+            transition: all .2s;
+            margin-bottom: 10px;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .upload-zone-icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .upload-zone-text {
+            font-size: 12px;
+            color: var(--ink-2);
+            font-weight: 500;
+        }
+
+        .upload-zone-sub {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 2px;
+        }
+
+        .uploaded-file {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            background: var(--success-light);
+            border: 1px solid var(--success);
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .uploaded-name {
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--success);
+            flex: 1;
+        }
+
+        .uploaded-size {
+            font-size: 10px;
+            color: var(--success);
+            opacity: .7;
+        }
+
+        /* REBUTTAL */
+        .rebuttal-box {
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            background: var(--bg);
+            font-size: 12px;
+            color: var(--ink-2);
+            line-height: 1.6;
+            min-height: 90px;
+            margin-bottom: 8px;
+        }
+
+        .char-count {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-3);
+            text-align: right;
+        }
+
+        /* PROGRESS BUNDLE */
+        .bundle-preview {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .bundle-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bundle-row:last-child {
+            border-bottom: none;
+        }
+
+        .bundle-num {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bundle-file {
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--ink);
+            flex: 1;
+        }
+
+        .bundle-pg {
+            font-size: 10px;
+            color: var(--ink-3);
+        }
+
+        /* RESOLUTION */
+        .resolution-hero {
+            text-align: center;
+            padding: 20px 0 16px;
+        }
+
+        .res-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .res-icon.won {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+        }
+
+        .res-icon.lost {
+            background: var(--danger-light);
+            border: 2px solid var(--danger);
+        }
+
+        .res-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .res-sub {
+            font-size: 12px;
+            color: var(--ink-2);
+            margin-top: 4px;
+        }
+
+        .settlement-box {
+            background: var(--success-light);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .settlement-label {
+            font-size: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 4px;
+        }
+
+        .settlement-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .settlement-sub {
+            font-size: 11px;
+            color: var(--success);
+            opacity: .8;
+            margin-top: 2px;
+        }
+
+        .deduct-box {
+            background: var(--danger-light);
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .deduct-label {
+            font-size: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--danger);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 4px;
+        }
+
+        .deduct-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--danger);
+        }
+
+        .reason-box {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .reason-label {
+            font-size: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--ink-3);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .reason-text {
+            font-size: 12px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all .15s;
+            letter-spacing: .01em;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            width: 100%;
+            box-shadow: 0 2px 0 var(--accent-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ink-2);
+            border: 1.5px solid var(--border-strong);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+            width: 100%;
+            box-shadow: 0 2px 0 #0e4a2a;
+        }
+
+        .btn-outline-danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1.5px solid var(--danger);
+            width: 100%;
+        }
+
+        .btn-ghost {
+            background: var(--surface2);
+            color: var(--ink-2);
+            width: 100%;
+            border: 1px solid var(--border);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-row .btn {
+            flex: 1;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--ink-2);
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--ink-2);
+            background: var(--surface);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ANNOTATION PANEL */
+        .panel {}
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .panel-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            background: var(--accent);
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 3px;
+            letter-spacing: .04em;
+        }
+
+        .annotation {
+            background: var(--ann);
+            border: 1px solid var(--ann-border);
+            border-radius: 7px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .annotation::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--ann-border);
+            border-radius: 3px 0 0 3px;
+        }
+
+        .annotation-id {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            color: #7a6800;
+            margin-bottom: 5px;
+        }
+
+        .annotation-text {
+            font-size: 12px;
+            color: #4a3800;
+            line-height: 1.6;
+        }
+
+        .annotation-text code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: rgba(0, 0, 0, .07);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        .spec-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .spec-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--ink-3);
+            margin-bottom: 9px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 7px;
+            gap: 10px;
+        }
+
+        .spec-key {
+            font-size: 11px;
+            color: var(--ink-3);
+            flex-shrink: 0;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .spec-val {
+            font-size: 11px;
+            color: var(--ink);
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .spec-val.accent {
+            color: var(--accent);
+        }
+
+        .spec-val.success {
+            color: var(--success);
+        }
+
+        .spec-val.warning {
+            color: var(--warning);
+        }
+
+        .spec-val.danger {
+            color: var(--danger);
+        }
+
+        .spec-val.blue {
+            color: var(--blue);
+        }
+
+        .ac-block {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .ac-id {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .ac-line {
+            font-size: 12px;
+            color: var(--ink-2);
+            line-height: 1.6;
+            margin-bottom: 1px;
+        }
+
+        .ac-line strong {
+            color: var(--ink);
+        }
+
+        .sep {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 14px 0;
+        }
+
+        /* REASON CODE TAG */
+        .rc-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 8px;
+            background: var(--surface2);
+            border: 1px solid var(--border-strong);
+            border-radius: 5px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .rc-desc {
+            font-size: 12px;
+            color: var(--ink-2);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .network-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .network-tag.visa {
+            background: #1A1F71;
+            color: #fff;
+        }
+
+        .network-tag.mc {
+            background: #EB001B;
+            color: #fff;
+        }
+
+        /* INFO BOX */
+        .info-box {
+            background: var(--blue-light);
+            border: 1px solid #a0b8f0;
+            border-radius: 7px;
+            padding: 10px 13px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            color: var(--blue);
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.5;
+        }
+
+        .warn-box {
+            background: var(--warning-light);
+            border: 1px solid #e0b870;
+            border-radius: 7px;
+            padding: 10px 13px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            color: var(--warning);
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.5;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tl-item {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+
+        .tl-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            width: 1px;
+            height: 100%;
+            background: var(--border);
+        }
+
+        .tl-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            font-size: 9px;
+            font-weight: 700;
+            border: 2px solid var(--border-strong);
+        }
+
+        .tl-dot.done {
+            background: var(--success);
+            border-color: var(--success);
+            color: #fff;
+        }
+
+        .tl-dot.active {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--warning);
+            font-size: 8px;
+        }
+
+        .tl-dot.pend {
+            background: var(--surface);
+            color: var(--ink-3);
+        }
+
+        .tl-content {
+            padding-bottom: 14px;
+        }
+
+        .tl-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .tl-sub {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 1px;
+        }
+
+        @media (max-width: 800px) {
+
+            .layout,
+            .layout.wide {
+                grid-template-columns: 1fr;
+            }
+
+            .screen-wrap {
+                position: static;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand">Pay<span>Gate</span> · Chargeback</div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="show('s1',this)">S1 · Dashboard</button>
+            <button class="nav-tab" onclick="show('s2',this)">S2 · Case Detail</button>
+            <button class="nav-tab" onclick="show('s3',this)">S3 · Evidence Upload</button>
+            <button class="nav-tab" onclick="show('s4',this)">S4 · Rebuttal + Preview</button>
+            <button class="nav-tab" onclick="show('s5',this)">S5 · Submitted</button>
+            <button class="nav-tab" onclick="show('s6a',this)">S6A · Won ✓</button>
+            <button class="nav-tab" onclick="show('s6b',this)">S6B · Lost ✕</button>
+        </div>
+    </nav>
+
+    <!-- S1: DASHBOARD -->
+    <div class="canvas active" id="s1">
+        <div class="layout wide">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 1 · Chargeback Dashboard</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes</div>
+                    </div>
+                    <div class="dash-layout">
+                        <div class="dash-sidebar">
+                            <div class="sidebar-brand">
+                                <div class="sidebar-logo">PayGate</div>
+                                <div class="sidebar-tag">Merchant Portal</div>
+                            </div>
+                            <div class="sidebar-section">Payments</div>
+                            <div class="sidebar-item">💳 Transactions</div>
+                            <div class="sidebar-item active">⚠️ Disputes</div>
+                            <div class="sidebar-item">🔄 Retries</div>
+                            <div class="sidebar-section">Account</div>
+                            <div class="sidebar-item">⚙️ Settings</div>
+                            <div class="sidebar-item">📊 Reports</div>
+                        </div>
+                        <div class="dash-content">
+                            <div class="screen-title" style="font-size:14px;">Chargeback Disputes</div>
+                            <div class="screen-sub" style="font-size:11px; margin-bottom:12px;">January 2025</div>
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-val danger">8</div>
+                                    <div class="stat-label">Open</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-val warning">3</div>
+                                    <div class="stat-label">Urgent (&lt;3d)</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-val success">62%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-val">24</div>
+                                    <div class="stat-label">Total Cases</div>
+                                </div>
+                            </div>
+                            <div class="filter-bar">
+                                <button class="filter-btn active">All (24)</button>
+                                <button class="filter-btn">Open (8)</button>
+                                <button class="filter-btn">Won (11)</button>
+                                <button class="filter-btn">Lost (5)</button>
+                                <input class="search-box" placeholder="🔍 Search by ID, amount…" readonly>
+                            </div>
+                            <div class="table-wrap">
+                                <div class="table-header">
+                                    <div class="table-hcell">Case / Merchant</div>
+                                    <div class="table-hcell">Amount</div>
+                                    <div class="table-hcell">Deadline</div>
+                                    <div class="table-hcell">Status</div>
+                                    <div class="table-hcell">Network</div>
+                                </div>
+                                <div class="table-row selected">
+                                    <div class="table-cell main">CB-2025-0041<br><span
+                                            style="font-size:10px;color:var(--ink-3);font-family:'IBM Plex Mono'">Fraud
+                                            · 10.4</span></div>
+                                    <div class="table-cell">฿3,200</div>
+                                    <div class="table-cell" style="color:var(--danger);font-weight:700;">1d left</div>
+                                    <div class="table-cell"><span class="badge urgent"><span
+                                                class="pulse-dot"></span>URGENT</span></div>
+                                    <div class="table-cell"><span class="network-tag visa">VISA</span></div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell main">CB-2025-0039<br><span
+                                            style="font-size:10px;color:var(--ink-3);font-family:'IBM Plex Mono'">Not
+                                            Received · 13.1</span></div>
+                                    <div class="table-cell">฿890</div>
+                                    <div class="table-cell" style="color:var(--warning);">5d left</div>
+                                    <div class="table-cell"><span class="badge open"><span
+                                                class="pulse-dot"></span>OPEN</span></div>
+                                    <div class="table-cell"><span class="network-tag visa">VISA</span></div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell main">CB-2025-0037<br><span
+                                            style="font-size:10px;color:var(--ink-3);font-family:'IBM Plex Mono'">Duplicate
+                                            · 12.6</span></div>
+                                    <div class="table-cell">฿1,450</div>
+                                    <div class="table-cell">12d left</div>
+                                    <div class="table-cell"><span class="badge submitted">SUBMITTED</span></div>
+                                    <div class="table-cell"><span class="network-tag mc">MC</span></div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell main">CB-2025-0033<br><span
+                                            style="font-size:10px;color:var(--ink-3);font-family:'IBM Plex Mono'">Fraud
+                                            · 10.4</span></div>
+                                    <div class="table-cell">฿5,800</div>
+                                    <div class="table-cell">—</div>
+                                    <div class="table-cell"><span class="badge won">WON</span></div>
+                                    <div class="table-cell"><span class="network-tag visa">VISA</span></div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell main">CB-2025-0031<br><span
+                                            style="font-size:10px;color:var(--ink-3);font-family:'IBM Plex Mono'">Not
+                                            Described · 13.3</span></div>
+                                    <div class="table-cell">฿2,100</div>
+                                    <div class="table-cell">—</div>
+                                    <div class="table-cell"><span class="badge lost">LOST</span></div>
+                                    <div class="table-cell"><span class="network-tag mc">MC</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 1</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-1.1 · Urgent Priority Flagging</div>
+                    <div class="annotation-text">Cases with deadline ≤ 3 days auto-sort to top of list regardless of
+                        filter. Show red "URGENT" badge + pulsing dot. Send push notification to merchant at exactly
+                        3-day mark. Ref: <code>FR-04, AC-003</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-1.2 · Stats Cards Logic</div>
+                    <div class="annotation-text">"Win Rate" card = Won ÷ (Won + Lost) for current month. Exclude "Open"
+                        and "Submitted" from denominator. Tooltip on hover shows calculation method. Update in real time
+                        when new resolution comes in.</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-1.3 · Compliance Escalation at 48hrs</div>
+                    <div class="annotation-text">When deadline crosses 48-hour mark and case status is still
+                        <code>Open</code>, auto-escalate to compliance queue. Do NOT change merchant-visible status —
+                        only internal flag. Ref: <code>FR-04</code></div>
+                </div>
+                <hr class="sep">
+                <div class="spec-block">
+                    <div class="spec-title">Dashboard Metrics</div>
+                    <div class="spec-row"><span class="spec-key">Refresh interval</span><span class="spec-val">Real-time
+                            (WebSocket)</span></div>
+                    <div class="spec-row"><span class="spec-key">Default sort</span><span
+                            class="spec-val warning">Deadline ASC</span></div>
+                    <div class="spec-row"><span class="spec-key">Rows per page</span><span class="spec-val">20</span>
+                    </div>
+                    <div class="spec-row"><span class="spec-key">CSV export</span><span
+                            class="spec-val success">Available</span></div>
+                </div>
+                <div class="ac-block">
+                    <div class="ac-id">AC-001 · Case Notification</div>
+                    <div class="ac-line"><strong>Given</strong> platform receives chargeback from card network</div>
+                    <div class="ac-line"><strong>When</strong> case is created</div>
+                    <div class="ac-line"><strong>Then</strong> merchant notified within 30 minutes</div>
+                    <div class="ac-line"><strong>And</strong> case appears in dashboard immediately</div>
+                    <div class="ac-line"><strong>And</strong> deadline calculated and displayed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S2: CASE DETAIL -->
+    <div class="canvas" id="s2">
+        <div class="layout wide">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 2 · Case Detail</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0041</div>
+                    </div>
+                    <div class="screen-body" style="padding:16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                            <span style="font-size:11px;color:var(--ink-3);cursor:pointer;">← Disputes</span>
+                            <span style="color:var(--border-strong);">/</span>
+                            <span
+                                style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--ink);">CB-2025-0041</span>
+                            <span class="badge urgent" style="margin-left:auto;"><span
+                                    class="pulse-dot"></span>URGENT</span>
+                        </div>
+                        <div class="deadline-box urgent">
+                            <span style="font-size:16px;">⏰</span>
+                            <div>
+                                <div class="deadline-num">1 day 4 hrs</div>
+                                <div style="font-size:10px;margin-top:1px;">remaining to submit evidence</div>
+                            </div>
+                        </div>
+                        <div class="rc-tag"><span class="network-tag visa" style="font-size:9px;">VISA</span> Code 10.4
+                            — Fraud · Card Absent Environment</div>
+                        <div class="rc-desc">Cardholder claims they did not authorise this transaction. Common in
+                            online/card-not-present purchases. You must prove the cardholder or authorised person made
+                            this purchase.</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Transaction Amount</div>
+                                <div class="info-val">฿3,200.00</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Transaction Date</div>
+                                <div class="info-val">12 Jan 2025</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cardholder</div>
+                                <div class="info-val">S. Wongsa****</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Card Network</div>
+                                <div class="info-val"><span class="network-tag visa">VISA</span></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Case Reference</div>
+                                <div class="info-val mono">CB-2025-0041</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Filed Date</div>
+                                <div class="info-val">13 Jan 2025</div>
+                            </div>
+                        </div>
+                        <div class="section-title">Case Timeline</div>
+                        <div class="timeline">
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Chargeback Filed</div>
+                                    <div class="tl-sub">13 Jan 2025 · 09:14</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot active">●</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Awaiting Evidence</div>
+                                    <div class="tl-sub">Deadline: 14 Jan 2025 · 23:59</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot pend">○</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Under Review</div>
+                                    <div class="tl-sub">Pending</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot pend">○</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Resolution</div>
+                                    <div class="tl-sub">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="margin-top:16px;">Upload Evidence →</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 2</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-2.1 · Reason Code Auto-mapping</div>
+                    <div class="annotation-text">System auto-maps reason code to human-readable explanation + required
+                        evidence list. Mapping config stored in <code>/api/config/reason-codes</code>. Never show raw
+                        code alone without explanation — SME merchants don't know what "10.4" means. Ref:
+                        <code>FR-01</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-2.2 · Cardholder Name Masking</div>
+                    <div class="annotation-text">Display only first initial + last 4 chars of surname for privacy
+                        compliance. Full name accessible to compliance team in internal view only. Do NOT expose full
+                        cardholder PII to merchant in UI.</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-2.3 · Deadline Countdown</div>
+                    <div class="annotation-text">Countdown refreshes every minute (not real-time polling — too
+                        expensive). At &lt;24hrs, show red banner. At &lt;3hrs, show modal alert on page load. Deadline
+                        timezone = Bangkok (UTC+7) displayed explicitly. Ref: <code>AC-003</code></div>
+                </div>
+                <hr class="sep">
+                <div class="spec-block">
+                    <div class="spec-title">Case Status Flow</div>
+                    <div class="spec-row"><span class="spec-key">Open</span><span class="spec-val warning">Awaiting
+                            evidence</span></div>
+                    <div class="spec-row"><span class="spec-key">Submitted</span><span class="spec-val blue">Evidence
+                            sent</span></div>
+                    <div class="spec-row"><span class="spec-key">Under Review</span><span class="spec-val blue">Network
+                            reviewing</span></div>
+                    <div class="spec-row"><span class="spec-key">Won</span><span class="spec-val success">Merchant
+                            wins</span></div>
+                    <div class="spec-row"><span class="spec-key">Lost</span><span class="spec-val danger">Cardholder
+                            wins</span></div>
+                    <div class="spec-row"><span class="spec-key">Accepted</span><span class="spec-val">Merchant
+                            accepted</span></div>
+                    <div class="spec-row"><span class="spec-key">Expired</span><span class="spec-val danger">No
+                            response</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S3: EVIDENCE UPLOAD -->
+    <div class="canvas" id="s3">
+        <div class="layout wide">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 3 · Evidence Upload</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0041/evidence</div>
+                    </div>
+                    <div class="screen-body" style="padding:16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <span style="font-size:11px;color:var(--ink-3);cursor:pointer;">← CB-2025-0041</span>
+                            <span class="badge urgent" style="margin-left:auto;"><span class="pulse-dot"></span>1d 4hrs
+                                left</span>
+                        </div>
+                        <div class="screen-title" style="font-size:15px;">Upload Evidence</div>
+                        <div class="screen-sub" style="font-size:11px;">Visa 10.4 · Fraud — required documents for this
+                            case:</div>
+                        <div class="evidence-list">
+                            <div class="evidence-item done">
+                                <div class="evidence-icon">🧾</div>
+                                <div class="evidence-text">
+                                    <div class="evidence-name">Transaction Receipt</div>
+                                    <div class="evidence-sub">receipt_jan12.pdf · 284KB</div>
+                                </div>
+                                <div class="evidence-status done">✓ UPLOADED</div>
+                            </div>
+                            <div class="evidence-item done">
+                                <div class="evidence-icon">🖥️</div>
+                                <div class="evidence-text">
+                                    <div class="evidence-name">IP / Device Log</div>
+                                    <div class="evidence-sub">session_log.pdf · 128KB</div>
+                                </div>
+                                <div class="evidence-status done">✓ UPLOADED</div>
+                            </div>
+                            <div class="evidence-item missing">
+                                <div class="evidence-icon">🔐</div>
+                                <div class="evidence-text">
+                                    <div class="evidence-name">Cardholder Auth Confirmation</div>
+                                    <div class="evidence-sub">3DS auth record or signed agreement</div>
+                                </div>
+                                <div class="evidence-status missing">✕ REQUIRED</div>
+                            </div>
+                            <div class="evidence-item optional">
+                                <div class="evidence-icon">📧</div>
+                                <div class="evidence-text">
+                                    <div class="evidence-name">Customer Communication</div>
+                                    <div class="evidence-sub">Emails, chat logs, order confirmations</div>
+                                </div>
+                                <div class="evidence-status optional">OPTIONAL</div>
+                            </div>
+                        </div>
+                        <div class="upload-zone">
+                            <div class="upload-zone-icon">📎</div>
+                            <div class="upload-zone-text">Drag & drop or click to upload</div>
+                            <div class="upload-zone-sub">PDF · JPG · PNG · XLSX · max 25MB total</div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <span style="font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--ink-3);">Total
+                                uploaded: 412KB / 25MB</span>
+                            <span style="font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--warning);">1
+                                required document missing</span>
+                        </div>
+                        <button class="btn btn-primary" style="opacity:.5;cursor:not-allowed;">Continue to Rebuttal →
+                            (upload all required docs first)</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 3</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-3.1 · Evidence Checklist by Reason Code</div>
+                    <div class="annotation-text">Evidence checklist is dynamically generated from reason code. Config in
+                        <code>/api/config/reason-codes/{code}/evidence</code>. Each item has
+                        <code>required: true/false</code> flag. Continue button disabled until all
+                        <code>required: true</code> items are uploaded. Ref: <code>FR-02</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-3.2 · 25MB Total Cap Validation</div>
+                    <div class="annotation-text">Track cumulative size in real time as files are added. Show progress
+                        bar. When approaching 20MB show warning: "Approaching file limit." At 25MB, block further
+                        uploads. Validate server-side too — client validation alone is insufficient. Ref:
+                        <code>AC-002</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-3.3 · Draft Auto-save</div>
+                    <div class="annotation-text">All uploaded files saved to draft automatically. If merchant closes
+                        browser and returns, restore draft. Show toast: "We restored your previous upload progress."
+                        Draft expires 1hr after case deadline.</div>
+                </div>
+                <hr class="sep">
+                <div class="spec-block">
+                    <div class="spec-title">Upload Constraints</div>
+                    <div class="spec-row"><span class="spec-key">Formats</span><span class="spec-val">PDF · JPG · PNG ·
+                            XLSX</span></div>
+                    <div class="spec-row"><span class="spec-key">Total size limit</span><span
+                            class="spec-val warning">25 MB</span></div>
+                    <div class="spec-row"><span class="spec-key">Individual file max</span><span class="spec-val">10
+                            MB</span></div>
+                    <div class="spec-row"><span class="spec-key">Encryption</span><span class="spec-val success">AES-256
+                            at rest</span></div>
+                    <div class="spec-row"><span class="spec-key">Draft retention</span><span class="spec-val">Until
+                            deadline + 1hr</span></div>
+                </div>
+                <div class="ac-block">
+                    <div class="ac-id">AC-002 · Upload Validation</div>
+                    <div class="ac-line"><strong>When</strong> total size exceeds 25MB</div>
+                    <div class="ac-line"><strong>Then</strong> reject upload with clear error message</div>
+                    <div class="ac-line"><strong>And</strong> no files stored for rejected upload</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S4: REBUTTAL + PREVIEW -->
+    <div class="canvas" id="s4">
+        <div class="layout wide">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 4 · Rebuttal Letter + Package Preview</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0041/rebuttal</div>
+                    </div>
+                    <div class="screen-body" style="padding:16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <span style="font-size:11px;color:var(--ink-3);cursor:pointer;">← Evidence Upload</span>
+                        </div>
+                        <div class="screen-title" style="font-size:15px;">Rebuttal Letter</div>
+                        <div class="screen-sub" style="font-size:11px;margin-bottom:12px;">Write a rebuttal explaining
+                            why this dispute is invalid. This will appear as Page 1 of your evidence package.</div>
+                        <div class="info-box">💡 Tip: Reference specific evidence by name. State clearly why the
+                            cardholder's claim is incorrect. Keep under 2,000 characters.</div>
+                        <div class="rebuttal-box">
+                            We dispute this chargeback for transaction CB-2025-0041 dated January 12, 2025.
+
+                            The cardholder placed this order through our website using a verified account with 3DS
+                            authentication (see: session_log.pdf). The transaction was processed with full cardholder
+                            verification. Delivery was confirmed on January 14 via tracking number TH123456789TH (see:
+                            delivery_confirm.pdf).
+
+                            We have no record of any prior cancellation or refund request from this cardholder.
+                        </div>
+                        <div class="char-count">342 / 2,000 characters</div>
+
+                        <div class="section-title" style="margin-top:14px;">Evidence Package Preview</div>
+                        <div class="bundle-preview">
+                            <div class="bundle-row">
+                                <div class="bundle-num">1</div>
+                                <div class="bundle-file">rebuttal_letter.pdf</div>
+                                <div class="bundle-pg">1 page</div>
+                            </div>
+                            <div class="bundle-row">
+                                <div class="bundle-num">2</div>
+                                <div class="bundle-file">receipt_jan12.pdf</div>
+                                <div class="bundle-pg">2 pages</div>
+                            </div>
+                            <div class="bundle-row">
+                                <div class="bundle-num">3</div>
+                                <div class="bundle-file">session_log.pdf</div>
+                                <div class="bundle-pg">3 pages</div>
+                            </div>
+                            <div class="bundle-row">
+                                <div class="bundle-num">4</div>
+                                <div class="bundle-file">3ds_auth_confirm.pdf</div>
+                                <div class="bundle-pg">1 page</div>
+                            </div>
+                        </div>
+                        <div
+                            style="font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--ink-3);margin-bottom:14px;">
+                            Total package: 4 documents · 7 pages · 540KB</div>
+                        <div class="btn-row">
+                            <button class="btn btn-secondary">← Back</button>
+                            <button class="btn btn-primary">Submit to Visa →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 4</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-4.1 · Rebuttal as Page 1</div>
+                    <div class="annotation-text">Rebuttal letter MUST be first page of PDF bundle — this is a Visa
+                        submission requirement. System auto-converts rebuttal text to PDF and prepends to bundle. If
+                        merchant leaves rebuttal blank, show warning (not hard block): "Submitting without a rebuttal
+                        letter reduces win probability." Ref: <code>AC-004</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-4.2 · PDF Bundle Generation</div>
+                    <div class="annotation-text">Bundle generated server-side on Submit click. Do not pre-generate
+                        (wastes resources). Show loading state: "Building your evidence package…" (est. 3–5s). If
+                        generation fails, show error and allow retry — do NOT lose the uploaded files. Ref:
+                        <code>FR-02</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-4.3 · Submit Confirmation Modal</div>
+                    <div class="annotation-text">On "Submit to Visa" click, show confirmation modal: "Once submitted,
+                        this evidence cannot be changed. Are you sure?" Two buttons: "Yes, submit" and "Cancel." This
+                        prevents accidental submissions which cannot be undone once sent to card network.</div>
+                </div>
+                <hr class="sep">
+                <div class="ac-block">
+                    <div class="ac-id">AC-004 · Evidence Package Generation</div>
+                    <div class="ac-line"><strong>When</strong> merchant confirms submission</div>
+                    <div class="ac-line"><strong>Then</strong> all files combined into ordered PDF bundle</div>
+                    <div class="ac-line"><strong>And</strong> rebuttal letter is Page 1</div>
+                    <div class="ac-line"><strong>And</strong> confirmation email sent with case ref</div>
+                    <div class="ac-line"><strong>And</strong> status updates to <code>Evidence Submitted</code></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S5: SUBMITTED -->
+    <div class="canvas" id="s5">
+        <div class="layout">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 5 · Submission Confirmed</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0041</div>
+                    </div>
+                    <div class="screen-body">
+                        <div style="text-align:center;padding:20px 0 16px;">
+                            <div
+                                style="width:56px;height:56px;border-radius:50%;background:var(--blue-light);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">
+                                📤</div>
+                            <div class="screen-title">Evidence Submitted</div>
+                            <div class="screen-sub" style="margin-bottom:0;">Your case has been forwarded to Visa for
+                                review.</div>
+                        </div>
+                        <hr class="sep">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Case Reference</div>
+                                <div class="info-val mono">CB-2025-0041</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Submitted At</div>
+                                <div class="info-val">14 Jan · 18:22</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Documents</div>
+                                <div class="info-val">4 files · 540KB</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Est. Decision</div>
+                                <div class="info-val">7–14 days</div>
+                            </div>
+                        </div>
+                        <div class="info-box">📧 Confirmation sent to merchant@company.co.th</div>
+                        <div class="timeline">
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Chargeback Filed</div>
+                                    <div class="tl-sub">13 Jan · 09:14</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Evidence Submitted</div>
+                                    <div class="tl-sub">14 Jan · 18:22</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot active">●</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Under Review</div>
+                                    <div class="tl-sub">Visa processing · est. 7–14 days</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot pend">○</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Resolution</div>
+                                    <div class="tl-sub">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-ghost" style="margin-top:16px;">← Back to All Disputes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 5</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-5.1 · No Edit After Submit</div>
+                    <div class="annotation-text">Once status = <code>Evidence Submitted</code>, all upload/edit buttons
+                        are disabled. Show tooltip: "Evidence has been sent to Visa and cannot be modified." This is a
+                        hard rule — card networks do not accept amended submissions after the initial send.</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-5.2 · Confirmation Email Content</div>
+                    <div class="annotation-text">Email must include: case reference, submission timestamp, list of
+                        uploaded documents (names only, not files), estimated decision timeline, and support contact.
+                        Ref: <code>FR-03, AC-004</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-5.3 · KPI Tracking Trigger</div>
+                    <div class="annotation-text">Log this event as "submitted_before_deadline" = true. This feeds the
+                        core KPI: % cases submitted before deadline (target: &gt;90%). Track time between case creation
+                        and submission for "Avg. time to submission" metric (target: &lt;1 day).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S6A: WON -->
+    <div class="canvas" id="s6a">
+        <div class="layout">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 6A · Resolution — Won</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0041</div>
+                    </div>
+                    <div class="screen-body">
+                        <div class="resolution-hero">
+                            <div class="res-icon won">🏆</div>
+                            <div class="res-title">Dispute Won</div>
+                            <div class="res-sub">Visa ruled in your favour on 27 Jan 2025</div>
+                        </div>
+                        <hr class="sep">
+                        <div class="badge won" style="margin-bottom:14px;"><span>WON</span></div>
+                        <div class="settlement-box">
+                            <div class="settlement-label">Amount Recovered</div>
+                            <div class="settlement-amount">+฿3,200.00</div>
+                            <div class="settlement-sub">Will appear in next settlement cycle (est. 31 Jan 2025)</div>
+                        </div>
+                        <div class="reason-box">
+                            <div class="reason-label">Visa Decision Notes</div>
+                            <div class="reason-text">Evidence submitted by merchant demonstrates a valid
+                                cardholder-authenticated transaction with confirmed delivery. Chargeback claim
+                                dismissed.</div>
+                        </div>
+                        <div class="timeline">
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Chargeback Filed</div>
+                                    <div class="tl-sub">13 Jan · 09:14</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Evidence Submitted</div>
+                                    <div class="tl-sub">14 Jan · 18:22</div>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot done">✓</div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Resolution — Won</div>
+                                    <div class="tl-sub">27 Jan · 11:05</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-ghost" style="margin-top:16px;">← Back to All Disputes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 6A</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6A.1 · Settlement Timing</div>
+                    <div class="annotation-text">Recovered amount is NOT credited instantly. Flag to merchant clearly
+                        that credit appears in next settlement cycle. Settlement cycle day is merchant-specific
+                        (configured in account settings). Show estimated date based on their cycle. Ref:
+                        <code>AC-005</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6A.2 · Win Rate Update</div>
+                    <div class="annotation-text">On resolution = Won, immediately update win rate stat on dashboard.
+                        This is a positive feedback loop — merchant sees improvement from submitting good evidence.
+                        Track win rate by reason code to show which categories have highest success.</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6A.3 · Email Notification</div>
+                    <div class="annotation-text">Send "Dispute Won" email immediately on resolution. Subject: "Great
+                        news — your dispute CB-2025-0041 was won." Include: amount recovered, estimated settlement date,
+                        and link back to case. Positive email improves merchant trust in platform. Ref:
+                        <code>AC-005</code></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S6B: LOST -->
+    <div class="canvas" id="s6b">
+        <div class="layout">
+            <div class="screen-wrap">
+                <div class="screen-label">Screen 6B · Resolution — Lost</div>
+                <div class="screen">
+                    <div class="screen-topbar">
+                        <div class="dot r"></div>
+                        <div class="dot y"></div>
+                        <div class="dot g"></div>
+                        <div class="url-bar">app.paygate.io/disputes/CB-2025-0031</div>
+                    </div>
+                    <div class="screen-body">
+                        <div class="resolution-hero">
+                            <div class="res-icon lost">📋</div>
+                            <div class="res-title">Dispute Lost</div>
+                            <div class="res-sub">Visa ruled in cardholder's favour on 25 Jan 2025</div>
+                        </div>
+                        <hr class="sep">
+                        <div class="badge lost" style="margin-bottom:14px;">LOST</div>
+                        <div class="deduct-box">
+                            <div class="deduct-label">Amount Deducted</div>
+                            <div class="deduct-amount">−฿2,100.00</div>
+                            <div style="font-size:11px;color:var(--danger);margin-top:2px;">Deducted from your merchant
+                                balance</div>
+                        </div>
+                        <div class="reason-box">
+                            <div class="reason-label">Visa Decision Notes</div>
+                            <div class="reason-text">Evidence submitted was insufficient to demonstrate cardholder
+                                authorisation. Merchant was unable to provide 3DS authentication record for this
+                                transaction.</div>
+                        </div>
+                        <div class="warn-box">⚠ This case is not eligible for re-presentment. If you believe this
+                            decision is an error, contact our disputes team within 5 business days.</div>
+                        <div class="btn-row">
+                            <button class="btn btn-outline-danger">Contact Disputes Team</button>
+                            <button class="btn btn-ghost">← All Disputes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">PM Annotations</div>
+                    <div class="panel-tag">SCREEN 6B</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6B.1 · Balance Deduction Timing</div>
+                    <div class="annotation-text">Deduction happens immediately on resolution = Lost. If merchant balance
+                        is insufficient, create a negative balance record and prevent payouts until recovered. Notify
+                        merchant via separate "Balance Alert" email with repayment instructions. Ref:
+                        <code>AC-005</code></div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6B.2 · Loss Reason Must Be Specific</div>
+                    <div class="annotation-text">Decision notes must come from Visa/Mastercard API response — never
+                        generate a generic message. Display verbatim (translated to Thai if needed). Specific loss
+                        reasons allow merchant to improve evidence quality for future disputes. This is critical to
+                        improving win rate KPI over time.</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-id">📌 AN-6B.3 · Re-presentment Eligibility</div>
+                    <div class="annotation-text">Check if case is eligible for second chargeback (re-presentment /
+                        arbitration). Visa allows pre-arbitration in some cases. If eligible, show "Appeal this
+                        decision" CTA instead of "Contact Support." Route eligible cases to compliance team for manual
+                        review. Ref: Edge Case — re-presentment in PRD §8.</div>
+                </div>
+                <hr class="sep">
+                <div class="ac-block">
+                    <div class="ac-id">AC-005 · Resolution Notification</div>
+                    <div class="ac-line"><strong>When</strong> Won → amount reflected in next settlement</div>
+                    <div class="ac-line"><strong>When</strong> Lost → chargeback deducted from balance</div>
+                    <div class="ac-line"><strong>Then</strong> merchant notified immediately via email</div>
+                    <div class="ac-line"><strong>And</strong> dashboard status updated in real time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function show(id, tab) {
+            document.querySelectorAll('.canvas').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            tab.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
